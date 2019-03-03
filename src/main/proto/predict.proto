@@ -1,0 +1,25 @@
+syntax = "proto3";
+package proto;
+
+message Image {
+	int32 width = 1;
+	int32 height = 2;
+	bytes data = 3;
+	string format = 4;
+}
+
+message Result {
+	repeated float probability = 1;
+}
+
+message PredictRequest {
+	Image image = 1;
+}
+
+message PredictResponse {
+	Result result = 1;
+}
+
+service Predictor {
+	rpc Predict(stream PredictRequest) returns (stream PredictResponse);
+}
